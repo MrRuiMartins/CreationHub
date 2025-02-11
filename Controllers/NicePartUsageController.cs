@@ -104,6 +104,7 @@ namespace CreationHub.Controllers
             }
 
             var stream = _blobStorage.RetrievePicture(nicePartUsage.PictureUrl);
+            stream.Position = 0;
             return File(stream, "image/jpeg");
         }
         

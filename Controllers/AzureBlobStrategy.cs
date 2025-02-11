@@ -6,11 +6,12 @@ public class AzureBlobStrategy : IAzureBlobStorage
     
     public string UploadFromStream(Stream stream)
     {
+        stream.Position = 0;
         using var memoryStream = new MemoryStream();
         stream.CopyTo(memoryStream);
-
+        var bytes = memoryStream.ToArray();
         var key = Guid.NewGuid().ToString();
-        files.Add(key, memoryStream.ToArray());
+        files.Add(key, bytes);
         return key;
     }
 
