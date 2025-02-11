@@ -90,6 +90,51 @@ namespace CreationHub.Controllers
 
             return NoContent();
         }
+        
+        [HttpGet("picture/{id}")]
+        public async Task<IActionResult> GetPicture(long id)
+        {
+            var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
+            if (nicePartUsage?.Picture == null)
+            {
+                return NotFound();
+            }
+        
+            return File(nicePartUsage.Picture, "image/jpeg");
+        }
+        
+        [HttpPost("upload/{id}")]
+        public async Task<ActionResult<NicePartUsageDto>> PostUploadPicture(long id, [FromForm] IFormFile file)
+        {
+            var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
+            if (nicePartUsage == null)
+            {
+                return NotFound();
+            }
+            
+            using var ms = new MemoryStream();
+            file.CopyTo(ms);
+            
+            nicePartUsage.Picture = ms.ToArray();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NicePartUsageExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         // POST: api/NicePartUsage
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
