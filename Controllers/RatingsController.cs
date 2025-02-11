@@ -57,6 +57,7 @@ namespace CreationHub.Controllers
 
             rating.Creativity = ratingDto.Creativity;
             rating.Uniqueness = ratingDto.Uniqueness;
+            rating.NicePartUsageId = ratingDto.NicePartUsageId;
 
             try
             {
@@ -80,18 +81,25 @@ namespace CreationHub.Controllers
         // POST: api/Rating
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<RatingDto>> PostRating(RatingDto RatingDto)
+        public async Task<ActionResult<RatingDto>> PostRating(RatingDto ratingDto)
         {
-            var Rating = new Rating
+            var nicePartUsage = await _context.NicePartUsages.FindAsync(ratingDto.NicePartUsageId);
+            if (nicePartUsage == null)
             {
-                Creativity = RatingDto.Creativity,
-                Uniqueness = RatingDto.Uniqueness
+                return NotFound();
+            }
+            
+            var rating = new Rating
+            {
+                Creativity = ratingDto.Creativity,
+                Uniqueness = ratingDto.Uniqueness,
+                NicePartUsageId = ratingDto.NicePartUsageId,
             };
 
-            _context.Ratings.Add(Rating);
+            _context.Ratings.Add(rating);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetRating), new { id = Rating.Id }, Rating);
+            return CreatedAtAction(nameof(GetRating), new { id = rating.Id }, rating);
         }
 
         // DELETE: api/Rating/5
@@ -116,11 +124,17 @@ namespace CreationHub.Controllers
                 Id = rating.Id,
                 Creativity = rating.Creativity,
                 Uniqueness = rating.Uniqueness,
+                NicePartUsageId = rating.NicePartUsageId
             };
 
         private bool RatingExists(long id)
         {
             return _context.Ratings.Any(e => e.Id == id);
+        }
+        
+        private bool NicePartUsageExists(long id)
+        {
+            return _context.NicePartUsages.Any(e => e.Id == id);
         }
     }
 }

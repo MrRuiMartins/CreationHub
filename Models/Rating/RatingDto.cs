@@ -7,4 +7,6 @@ public class RatingDto
     public int? Creativity { get; set; }
 
     public int? Uniqueness { get; set; }
+    
+    public int NicePartUsageId { get; set; }
 }
