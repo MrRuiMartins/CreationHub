@@ -3,6 +3,6 @@ Creation Hub
 
 
 TODOs:
- - Add validaton to the rating, e.g. creativity max 10, etc.
+ - Add validaton to the rating, e.g. creativity max 10, etc. and Input validation for user input.
  - Users and auth - What considerations regarding security and user privacy did you have when designing the system?
  - C4 Model presentation
