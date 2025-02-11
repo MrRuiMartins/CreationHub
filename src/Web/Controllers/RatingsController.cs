@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CreationHub.Models;
 using CreationHub.Models.NicePartUsage;
+using CreationHub.Web.Dtos;
 
-namespace CreationHub.Controllers
+namespace CreationHub.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

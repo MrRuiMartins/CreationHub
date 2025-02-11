@@ -1,4 +1,4 @@
-namespace CreationHub.Models.NicePartUsage;
+namespace CreationHub.Web.Dtos;
 
 public class NicePartUsageDto
 {

@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using CreationHub.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CreationHub.Models.NicePartUsage;
-using CreationHub.Models;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
+using CreationHub.Web.Dtos;
 
-namespace CreationHub.Controllers
+namespace CreationHub.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

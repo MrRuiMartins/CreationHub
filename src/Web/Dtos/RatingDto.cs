@@ -1,4 +1,4 @@
-namespace CreationHub.Models;
+namespace CreationHub.Web.Dtos;
 
 public class RatingDto
 {
