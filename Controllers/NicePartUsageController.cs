@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CreationHub.Models.NicePartUsage;
 using CreationHub.Models;
 
 namespace CreationHub.Controllers
@@ -13,25 +14,25 @@ namespace CreationHub.Controllers
     [ApiController]
     public class NicePartUsageController : ControllerBase
     {
-        private readonly NicePartUsageContext _context;
+        private readonly CreationHubContext _context;
 
-        public NicePartUsageController(NicePartUsageContext context)
+        public NicePartUsageController(CreationHubContext context)
         {
             _context = context;
         }
 
         // GET: api/NicePartUsage
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NicePartUsageDTO>>> GetNicePartUsages()
+        public async Task<ActionResult<IEnumerable<NicePartUsageDto>>> GetNicePartUsages()
         {
             return await _context.NicePartUsages
-                .Select(entity => NicePartUsageToDTO(entity))
+                .Select(entity => NicePartUsageToDto(entity))
                 .ToListAsync();
         }
 
         // GET: api/NicePartUsage/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<NicePartUsageDTO>> GetNicePartUsage(long id)
+        public async Task<ActionResult<NicePartUsageDto>> GetNicePartUsage(long id)
         {
             var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
 
@@ -40,13 +41,13 @@ namespace CreationHub.Controllers
                 return NotFound();
             }
 
-            return NicePartUsageToDTO(nicePartUsage);
+            return NicePartUsageToDto(nicePartUsage);
         }
 
         // PUT: api/NicePartUsage/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutNicePartUsage(long id, NicePartUsageDTO nicePartUsageDto)
+        public async Task<IActionResult> PutNicePartUsage(long id, NicePartUsageDto nicePartUsageDto)
         {
             if (id != nicePartUsageDto.Id)
             {
@@ -84,7 +85,7 @@ namespace CreationHub.Controllers
         // POST: api/NicePartUsage
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<NicePartUsageDTO>> PostNicePartUsage(NicePartUsageDTO nicePartUsageDto)
+        public async Task<ActionResult<NicePartUsageDto>> PostNicePartUsage(NicePartUsageDto nicePartUsageDto)
         {
             var nicePartUsage = new NicePartUsage
             {
@@ -114,8 +115,8 @@ namespace CreationHub.Controllers
             return NoContent();
         }
 
-        private static NicePartUsageDTO NicePartUsageToDTO(NicePartUsage nicePartUsage) => 
-            new NicePartUsageDTO
+        private static NicePartUsageDto NicePartUsageToDto(NicePartUsage nicePartUsage) => 
+            new NicePartUsageDto
             {
                 Id = nicePartUsage.Id,
                 Title = nicePartUsage.Title,

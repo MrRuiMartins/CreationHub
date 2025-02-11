@@ -1,8 +1,9 @@
-namespace CreationHub.Models;
+namespace CreationHub.Models.NicePartUsage;
 
-public class NicePartUsageDTO
+public class NicePartUsage
 {
     public long Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
+    public string? ImageUrl { get; set; }
 }
