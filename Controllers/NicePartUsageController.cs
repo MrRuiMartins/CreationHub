@@ -98,12 +98,12 @@ namespace CreationHub.Controllers
         public async Task<IActionResult> GetPicture(long id)
         {
             var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
-            if (nicePartUsage?.ImageUrl == null)
+            if (nicePartUsage?.PictureUrl == null)
             {
                 return NotFound();
             }
 
-            var stream = _blobStorage.RetrievePicture(nicePartUsage.ImageUrl);
+            var stream = _blobStorage.RetrievePicture(nicePartUsage.PictureUrl);
             return File(stream, "image/jpeg");
         }
         
@@ -120,7 +120,7 @@ namespace CreationHub.Controllers
             file.CopyTo(ms);
             
             var imageUrl = _blobStorage.UploadFromStream(ms);
-            nicePartUsage.ImageUrl = imageUrl;
+            nicePartUsage.PictureUrl = imageUrl;
             
             try
             {
@@ -180,6 +180,7 @@ namespace CreationHub.Controllers
                 Id = nicePartUsage.Id,
                 Title = nicePartUsage.Title,
                 Description = nicePartUsage.Description,
+                PictureUrl = nicePartUsage.PictureUrl
             };
 
         private bool NicePartUsageExists(long id)
