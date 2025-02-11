@@ -112,6 +112,12 @@ namespace CreationHub.Web.Controllers
                 return NotFound();
             }
             
+            var allowedTypes = new List<string> { "image/jpeg", "image/png" };
+            if (!allowedTypes.Contains(file.ContentType))
+            {
+                return BadRequest("Invalid file type");
+            }
+            
             using var ms = new MemoryStream();
             file.CopyTo(ms);
             

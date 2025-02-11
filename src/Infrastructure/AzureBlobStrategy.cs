@@ -3,9 +3,15 @@ namespace CreationHub.Controllers;
 public class AzureBlobStrategy : IAzureBlobStorage
 {
     private readonly Dictionary<string, byte[]> files = new Dictionary<string, byte[]>();
-    
+    private readonly long MaxFileSize = 5 * 1024 * 1024; // 5MB
+
     public string UploadFromStream(Stream stream)
     {
+        if (stream.Length > MaxFileSize)
+        {
+            throw new IOException("File is too large");
+        }
+        
         stream.Position = 0;
         using var memoryStream = new MemoryStream();
         stream.CopyTo(memoryStream);

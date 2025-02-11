@@ -1,5 +1,7 @@
+using System.Threading.RateLimiting;
 using CreationHub.Controllers;
 using CreationHub.Models.NicePartUsage;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,15 @@ builder.Services.AddSingleton<IAzureBlobStorage, AzureBlobStrategy>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddRateLimiter(_ => _
+    .AddFixedWindowLimiter(policyName: "fixed", options =>
+    {
+        options.PermitLimit = 4;
+        options.Window = TimeSpan.FromSeconds(12);
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 2;
+    }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,7 +34,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRateLimiter();
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
