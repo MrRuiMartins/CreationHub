@@ -1,3 +1,4 @@
+using CreationHub.Controllers;
 using CreationHub.Models;
 using CreationHub.Models.NicePartUsage;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CreationHubContext>(opt =>
     opt.UseInMemoryDatabase("NicePartUsage"));
+builder.Services.AddSingleton<IAzureBlobStorage, AzureBlobStrategy>();
     
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

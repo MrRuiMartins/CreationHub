@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CreationHub.Models.NicePartUsage;
 using CreationHub.Models;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace CreationHub.Controllers
 {
@@ -15,10 +16,12 @@ namespace CreationHub.Controllers
     public class NicePartUsageController : ControllerBase
     {
         private readonly CreationHubContext _context;
+        private readonly IAzureBlobStorage _blobStorage;
 
-        public NicePartUsageController(CreationHubContext context)
+        public NicePartUsageController(CreationHubContext context, IAzureBlobStorage azureBlobStorage)
         {
             _context = context;
+            _blobStorage = azureBlobStorage;
         }
 
         [HttpGet("search/{searchString}")]
@@ -95,12 +98,13 @@ namespace CreationHub.Controllers
         public async Task<IActionResult> GetPicture(long id)
         {
             var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
-            if (nicePartUsage?.Picture == null)
+            if (nicePartUsage?.ImageUrl == null)
             {
                 return NotFound();
             }
-        
-            return File(nicePartUsage.Picture, "image/jpeg");
+
+            var stream = _blobStorage.RetrievePicture(nicePartUsage.ImageUrl);
+            return File(stream, "image/jpeg");
         }
         
         [HttpPost("upload/{id}")]
@@ -115,8 +119,9 @@ namespace CreationHub.Controllers
             using var ms = new MemoryStream();
             file.CopyTo(ms);
             
-            nicePartUsage.Picture = ms.ToArray();
-
+            var imageUrl = _blobStorage.UploadFromStream(ms);
+            nicePartUsage.ImageUrl = imageUrl;
+            
             try
             {
                 await _context.SaveChangesAsync();
