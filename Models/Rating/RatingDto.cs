@@ -8,5 +8,5 @@ public class RatingDto
 
     public int? Uniqueness { get; set; }
     
-    public int NicePartUsageId { get; set; }
+    public long NicePartUsageId { get; set; }
 }
