@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using CreationHub.Models;
 using CreationHub.Models.NicePartUsage;
 using CreationHub.Web.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CreationHub.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RatingsController : ControllerBase
     {
@@ -105,6 +107,7 @@ namespace CreationHub.Web.Controllers
 
         // DELETE: api/Rating/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteRating(long id)
         {
             var Rating = await _context.Ratings.FindAsync(id);

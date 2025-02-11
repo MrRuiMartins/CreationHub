@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CreationHub.Models.NicePartUsage;
 using CreationHub.Web.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CreationHub.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class NicePartUsageController : ControllerBase
     {
         private readonly CreationHubContext _context;
