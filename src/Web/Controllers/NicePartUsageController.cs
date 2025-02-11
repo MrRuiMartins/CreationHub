@@ -164,6 +164,7 @@ namespace CreationHub.Web.Controllers
 
         // DELETE: api/NicePartUsage/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteNicePartUsage(long id)
         {
             var nicePartUsage = await _context.NicePartUsages.FindAsync(id);
