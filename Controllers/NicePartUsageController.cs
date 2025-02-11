@@ -21,6 +21,15 @@ namespace CreationHub.Controllers
             _context = context;
         }
 
+        [HttpGet("search/{searchString}")]
+        public async Task<ActionResult<IEnumerable<NicePartUsageDto>>> SearchNicePartUsages(string searchString)
+        {
+            return await _context.NicePartUsages
+                .Where(c => c.Title != null && c.Title.Contains(searchString))
+                .Select(entity => NicePartUsageToDto(entity))
+                .ToListAsync();
+        }
+
         // GET: api/NicePartUsage
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NicePartUsageDto>>> GetNicePartUsages()
