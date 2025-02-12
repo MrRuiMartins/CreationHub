@@ -1,0 +1,7 @@
+@startuml
+class AzureBlobStrategy {
+    + UploadFromStream(stream:Stream) : string
+    + RetrievePicture(key:string) : Stream
+}
+IAzureBlobStorage <|-- AzureBlobStrategy
+@enduml

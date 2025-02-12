@@ -1,0 +1,11 @@
+@startuml
+class CreationHubContext {
+    + CreationHubContext(options:DbContextOptions<CreationHubContext>)
+}
+class "DbSet`1"<T> {
+}
+DbContext <|-- CreationHubContext
+CreationHubContext o-> "NicePartUsages<NicePartUsage>" "DbSet`1"
+CreationHubContext o-> "Ratings<Rating>" "DbSet`1"
+CreationHubContext o-> "Users<User>" "DbSet`1"
+@enduml

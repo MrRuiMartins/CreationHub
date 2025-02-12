@@ -1,0 +1,7 @@
+@startuml
+class AuthController {
+    + AuthController(context:CreationHubContext)
+    + <<async>> Login(request:LoginRequest) : Task<IActionResult>
+}
+ControllerBase <|-- AuthController
+@enduml

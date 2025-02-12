@@ -1,0 +1,14 @@
+@startuml
+class NicePartUsageController {
+    + NicePartUsageController(context:CreationHubContext, azureBlobStorage:IAzureBlobStorage)
+    + <<async>> SearchNicePartUsages(searchString:string) : Task<ActionResult<IEnumerable<NicePartUsageDto>>>
+    + <<async>> GetNicePartUsages() : Task<ActionResult<IEnumerable<NicePartUsageDto>>>
+    + <<async>> GetNicePartUsage(id:long) : Task<ActionResult<NicePartUsageDto>>
+    + <<async>> PutNicePartUsage(id:long, nicePartUsageDto:NicePartUsageDto) : Task<IActionResult>
+    + <<async>> GetPicture(id:long) : Task<IActionResult>
+    + <<async>> PostUploadPicture(id:long, file:IFormFile) : Task<ActionResult<NicePartUsageDto>>
+    + <<async>> PostNicePartUsage(nicePartUsageDto:NicePartUsageDto) : Task<ActionResult<NicePartUsageDto>>
+    + <<async>> DeleteNicePartUsage(id:long) : Task<IActionResult>
+}
+ControllerBase <|-- NicePartUsageController
+@enduml

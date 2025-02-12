@@ -1,0 +1,31 @@
+@startuml
+!include ./tests/Application.UnitTests/UnitTest1.puml
+!include ./tests/Domain.UnitTests/UnitTest1.puml
+!include ./src/Web/Program.puml
+!include ./src/Application/Class1.puml
+!include ./src/Infrastructure/IAzureBlobStorage.puml
+!include ./src/Infrastructure/AzureBlobStrategy.puml
+!include ./src/Infrastructure/CreationHubContext.puml
+!include ./src/Web/Dtos/LoginRequest.puml
+!include ./src/Web/Dtos/RatingDto.puml
+!include ./src/Web/Dtos/UserDto.puml
+!include ./src/Web/Dtos/NicePartUsageDto.puml
+!include ./src/Web/Controllers/NicePartUsageController.puml
+!include ./src/Web/Controllers/UserController.puml
+!include ./src/Web/Controllers/AuthController.puml
+!include ./src/Web/Controllers/RatingsController.puml
+!include ./src/Domain/Rating/Rating.puml
+!include ./src/Domain/User/User.puml
+!include ./src/Domain/NicePartUsage/NicePartUsage.puml
+!include ./tests/Application.UnitTests/obj/Debug/net9.0/Application.UnitTests.AssemblyInfo.puml
+!include ./tests/Application.UnitTests/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.puml
+!include ./tests/Application.UnitTests/obj/Debug/net9.0/Application.UnitTests.GlobalUsings.g.puml
+!include ./tests/Domain.UnitTests/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.puml
+!include ./tests/Domain.UnitTests/obj/Debug/net9.0/Domain.UnitTests.AssemblyInfo.puml
+!include ./tests/Domain.UnitTests/obj/Debug/net9.0/Domain.UnitTests.GlobalUsings.g.puml
+!include ./src/Web/obj/Debug/net9.0/Web.MvcApplicationPartsAssemblyInfo.puml
+!include ./src/Web/obj/Debug/net9.0/Web.GlobalUsings.g.puml
+!include ./src/Application/obj/Debug/net9.0/Application.GlobalUsings.g.puml
+!include ./src/Infrastructure/obj/Debug/net9.0/Infrastructure.GlobalUsings.g.puml
+!include ./src/Domain/obj/Debug/net9.0/Domain.GlobalUsings.g.puml
+@enduml

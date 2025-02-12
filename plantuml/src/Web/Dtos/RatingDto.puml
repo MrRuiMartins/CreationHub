@@ -1,0 +1,8 @@
+@startuml
+class RatingDto {
+    + Id : long <<get>> <<set>>
+    + Creativity : int? <<get>> <<set>>
+    + Uniqueness : int? <<get>> <<set>>
+    + NicePartUsageId : long <<get>> <<set>>
+}
+@enduml

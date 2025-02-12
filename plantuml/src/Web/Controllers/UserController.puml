@@ -1,0 +1,8 @@
+@startuml
+class UserController {
+    + UserController(context:CreationHubContext)
+    + <<async>> GetUser(id:long) : Task<ActionResult<UserDto>>
+    + <<async>> PostRating(userDto:UserDto) : Task<ActionResult<UserDto>>
+}
+ControllerBase <|-- UserController
+@enduml

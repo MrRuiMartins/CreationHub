@@ -1,0 +1,8 @@
+@startuml
+class NicePartUsageDto {
+    + Id : long <<get>> <<set>>
+    + Title : string? <<get>> <<set>>
+    + Description : string? <<get>> <<set>>
+    + PictureUrl : string? <<get>> <<set>>
+}
+@enduml

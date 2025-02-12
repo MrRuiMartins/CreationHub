@@ -1,0 +1,11 @@
+@startuml
+class RatingsController {
+    + RatingsController(context:CreationHubContext)
+    + <<async>> GetRatings() : Task<ActionResult<IEnumerable<RatingDto>>>
+    + <<async>> GetRating(id:long) : Task<ActionResult<RatingDto>>
+    + <<async>> PutRating(id:long, ratingDto:RatingDto) : Task<IActionResult>
+    + <<async>> PostRating(ratingDto:RatingDto) : Task<ActionResult<RatingDto>>
+    + <<async>> DeleteRating(id:long) : Task<IActionResult>
+}
+ControllerBase <|-- RatingsController
+@enduml
